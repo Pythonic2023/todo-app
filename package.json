@@ -1,0 +1,32 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "Todo application with organization for different topics.",
+  "keywords": [
+    "Todo",
+    "List"
+  ],
+  "homepage": "https://github.com/Pythonic2023/todo-app#readme",
+  "bugs": {
+    "url": "https://github.com/Pythonic2023/todo-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pythonic2023/todo-app.git"
+  },
+  "license": "ISC",
+  "author": "Pythonic",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --config webpack.production.js"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^5.6.8",
+    "webpack": "^5.109.2",
+    "webpack-cli": "^7.2.2",
+    "webpack-dev-server": "^6.0.0"
+  }
+}
