@@ -1,18 +1,10 @@
-import path from "node:path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
+import { merge } from "webpack-merge";
+import common from "./webpack.common.js";
 
-export default {
+export default merge(common, {
     mode: "development",
-    entry: "./src/index.js",
     devtool: "inline-source-map",
-    output: {
-        filename: "todo.bundle.js",
-        path: path.resolve(import.meta.dirname, "dist"),
-        clean: true,
+    devServer: {
+        static: "./dist",
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: "./src/template.html",
-        }),
-    ],
-}
+});
