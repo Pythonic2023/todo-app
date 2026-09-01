@@ -6,10 +6,14 @@ class Project{
         this.todoObjects = {};
     }
 
-    storeInProject(itemObject){
-        //Object.assign(this.todoObjects, itemObject);
+    addTodo(itemObject){
         let itemPriority = itemObject.priority;
         this.todoObjects[itemPriority] = itemObject;
+    }
+
+    removeTodo(itemObject){
+        let itemPriority = itemObject.priority;
+        delete this.todoObjects[itemPriority];
     }
 }
 
