@@ -1,3 +1,7 @@
-import { greeting } from "./hello.js";
+import {createTodoItem} from "./todoObject.js";
+import { Project, defaultProject } from "./project.js";
 
-console.log(greeting);
+let createdItem = createTodoItem("Refactor ALL code", "project", "Timmy has caused many bugs, FIX EVERYTHING", "duedate", "Medium");
+
+defaultProject.addTodo(createdItem);
+defaultProject.removeTodo(createdItem);
