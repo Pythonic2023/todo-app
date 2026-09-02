@@ -10,7 +10,7 @@ class TodoItem{
         this.dueDate = dueDate;
         this.priority = priority;
     }
-
+    
     logTitle(){
         console.log(this.title);
     }
