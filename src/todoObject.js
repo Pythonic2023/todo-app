@@ -9,10 +9,17 @@ class TodoItem{
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
+        this.uuid = this.generateUUID();
     }
     
     logTitle(){
         console.log(this.title);
+    }
+
+    generateUUID(){
+        let uuid = crypto.randomUUID();
+        let splitUUID = uuid.split("-");
+        return splitUUID.at(-1);
     }
 
 }

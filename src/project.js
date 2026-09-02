@@ -7,13 +7,14 @@ class Project{
     }
 
     addTodo(itemObject){
-        let itemPriority = itemObject.priority;
-        this.todoObjects[itemPriority] = itemObject;
+        let itemUUID = itemObject.uuid;
+        this.todoObjects[itemUUID] = itemObject;
+        console.log(this.todoObjects);
     }
 
     removeTodo(itemObject){
-        let itemPriority = itemObject.priority;
-        delete this.todoObjects[itemPriority];
+        let itemUUID = itemObject.uuid;
+        delete this.todoObjects[itemUUID];
     }
 }
 
