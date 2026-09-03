@@ -9,12 +9,15 @@ class Project{
     addTodo(itemObject){
         let itemUUID = itemObject.uuid;
         this.todoObjects[itemUUID] = itemObject;
-        console.log(this.todoObjects);
     }
 
     removeTodo(itemObject){
         let itemUUID = itemObject.uuid;
         delete this.todoObjects[itemUUID];
+    }
+
+    getProjectName(){
+        return this.projectName;
     }
 }
 
