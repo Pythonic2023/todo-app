@@ -5,5 +5,4 @@ let createdItem = createTodoItem("Refactor ALL code", "", "Timmy has caused many
 console.log(createdItem);
 
 defaultProject.addTodo(createdItem);
-console.log(defaultProject.getProjectName());
 
