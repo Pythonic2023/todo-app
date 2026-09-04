@@ -10,10 +10,6 @@ class TodoItem{
         
     }
 
-    logTitle(){
-        console.log(this.title);
-    }
-
     generateUUID(){
         let uuid = crypto.randomUUID();
         let splitUUID = uuid.split("-");
