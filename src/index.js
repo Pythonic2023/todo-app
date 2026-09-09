@@ -1,8 +1,6 @@
 import {createTodoItem} from "./todoObject.js";
-import { Project, defaultProject } from "./project.js";
 
-let createdItem = createTodoItem("Refactor ALL code", "", "Timmy has caused many bugs, FIX EVERYTHING", "duedate", "Medium");
-console.log(createdItem);
-
-defaultProject.addTodo(createdItem);
-
+let createdItem = createTodoItem("FIRST", "TheNewProject", "Timmy has caused many bugs, FIX EVERYTHING", "duedate", "Medium");
+let secondlyCreatedItem = createTodoItem("SECOND", "Default Project", "Timmy has caused many bugs, FIX EVERYTHING", "duedate", "Medium");
+let thirdlyCreatedItem = createTodoItem("THIRD", "TheNewProject", "Timmy has caused many bugs, FIX EVERYTHING", "duedate", "Medium");
+let fourthlyCreatedItem = createTodoItem("FOURTH", "Default Project", "Timmy has caused many bugs, FIX EVERYTHING", "duedate", "Medium");
