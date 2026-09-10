@@ -24,17 +24,17 @@ class TodoItem{
 
 let createTodoItem = function(...args){
     let project = args[1];
+    let projectObject = {};
     let storageResult = checkLocalStorage(project);
     let newItem = new TodoItem(...args);
 
     if(storageResult != null){
         let parsedResult = JSON.parse(storageResult);
-        let newObject = newItem[newItem.uuid] = newItem;
-        Object.assign(parsedResult, newObject);
+        projectObject[newItem.uuid] = newItem;
+        Object.assign(parsedResult, projectObject);
         localStorage.removeItem(storageResult);
         addLocalStorage(project, parsedResult);
     } else {
-        let projectObject = {};
         projectObject[newItem.uuid] = newItem;
         addLocalStorage(newItem.project, projectObject);
     }
@@ -44,5 +44,8 @@ let checkLocalStorage = function(project){
     let isStored = getLocalStorage(project);
     return isStored;
 }
+
+let returnedItem = checkLocalStorage("Default Project");
+console.log(returnedItem)
 
 export {createTodoItem};
