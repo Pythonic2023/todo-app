@@ -1,14 +1,14 @@
 import { addLocalStorage, getLocalStorage } from "./localStorage.js";
 
 class TodoItem{
-    constructor(title, project, description, dueDate, priority){
+    constructor(title, project, description, dueDate, priority, status = "Incomplete"){
         this.title = title;
         this.project = (!project) ? "Default Project" : project;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
         this.uuid = this.generateUUID();
-
+        this.status = status;
         
     }
 
