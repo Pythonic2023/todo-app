@@ -28,12 +28,12 @@ let createTodoItem = function(...args){
     let newItem = new TodoItem(...args);
 
     if(storageResult != null){
-        let parsedResult = JSON.parse(storageResult);
+        let parsedResult = storageResult;
         projectObject[newItem.title] = newItem;
         Object.assign(parsedResult, projectObject);
         localStorage.removeItem(storageResult);
         addLocalStorage(project, parsedResult);
-    } else {
+    } else {                                                        // REMOVE STRING OBJECT
         projectObject[newItem.title] = newItem;
         addLocalStorage(newItem.project, projectObject);
     }

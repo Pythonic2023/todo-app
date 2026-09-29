@@ -3,7 +3,6 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 
 export default {
     entry: "./src/index.js",
-    mode: "development",
     output: {
         filename: "todo.bundle.js",
         path: path.resolve(import.meta.dirname, "dist"),
