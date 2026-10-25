@@ -8,17 +8,17 @@ class TodoItem{
         this.description = description;
         this.dueDate = format(new Date(dueDate), "yyyy/MMM/dd");
         this.priority = priority;
-        this.uuid = this.generateUUID();
+        //this.uuid = this.generateUUID();
         this.status = status;
         
     }
-
+/*
     generateUUID(){
         let uuid = crypto.randomUUID();
         let splitUUID = uuid.split("-");
         return splitUUID.at(-1);
     }
-
+*/
 }
 
 let createTodoItem = function(...args){
