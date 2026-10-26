@@ -28,6 +28,7 @@ let createTodoItem = function(...args){
     let newItem = new TodoItem(...args);
 
     if(storageResult != null){
+        console.log(storageResult);
         let parsedResult = JSON.parse(storageResult);
         projectObject[newItem.title] = newItem;
         Object.assign(parsedResult, projectObject);
