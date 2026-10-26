@@ -7,7 +7,8 @@ let addLocalStorage = function(project, todoItem){
 
 let getLocalStorage = function(project){
     let item = localStorage.getItem(project);
-    return item;
+    let toObject = JSON.parse(item);
+    return toObject;
 }
 
 export {getLocalStorage, addLocalStorage};
