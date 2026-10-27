@@ -17,12 +17,19 @@ header.appendChild(newTodoButton);
 header.appendChild(websiteHeader);
 
 let object = {...localStorage};
+let parsed = JSON.parse(Object.values(object)); // TheNewProject value is stringified. Parse to objects. 
 
-console.log(object);
+for(const value of Object.keys(parsed)){
 
-/*
-let projectContents = getLocalStorage("TheNewProject");
-let title = document.createElement("h1");
-title.textContent = projectContents.FIRST.title;
-mainContent.appendChild(title);
-*/
+    Object.values(parsed[value]).forEach((element, index) => {
+        if(index === 0){
+            let title = document.createElement('h1');
+            title.textContent = element;
+            mainContent.appendChild(title);
+            return;
+        }
+        let entry = document.createElement('p');
+        entry.textContent = element;
+        mainContent.appendChild(entry);
+    });
+}
