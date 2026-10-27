@@ -20,16 +20,17 @@ let object = {...localStorage};
 let parsed = JSON.parse(Object.values(object)); // TheNewProject value is stringified. Parse to objects. 
 
 for(const value of Object.keys(parsed)){
-
+    let itemContainer = document.createElement('div');
     Object.values(parsed[value]).forEach((element, index) => {
         if(index === 0){
             let title = document.createElement('h1');
             title.textContent = element;
-            mainContent.appendChild(title);
+            itemContainer.appendChild(title);
             return;
         }
         let entry = document.createElement('p');
         entry.textContent = element;
-        mainContent.appendChild(entry);
+        itemContainer.appendChild(entry);
+        mainContent.appendChild(itemContainer);
     });
 }
