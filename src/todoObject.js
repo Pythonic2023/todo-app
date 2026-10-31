@@ -12,13 +12,6 @@ class TodoItem{
         this.status = status;
         
     }
-/*
-    generateUUID(){
-        let uuid = crypto.randomUUID();
-        let splitUUID = uuid.split("-");
-        return splitUUID.at(-1);
-    }
-*/
 }
 
 let createTodoItem = function(...args){
@@ -28,10 +21,9 @@ let createTodoItem = function(...args){
     let newItem = new TodoItem(...args);
 
     if(storageResult != null){
-        let parsedResult = storageResult;
         projectObject[newItem.title] = newItem;
-        Object.assign(parsedResult, projectObject);
-        addLocalStorage(project, parsedResult);
+        Object.assign(storageResult, projectObject);
+        addLocalStorage(project, storageResult);
     } else {                                                        // REMOVE STRING OBJECT
         projectObject[newItem.title] = newItem;
         addLocalStorage(newItem.project, projectObject);

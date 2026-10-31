@@ -1,3 +1,5 @@
+
+
 body {
     box-sizing: border-box;
     max-width: 100%;
@@ -30,4 +32,29 @@ body {
 
 .newTodoButton:hover {
     cursor: pointer;
+}
+
+.main-content {
+    display: flex;
+    gap: 5px;
+    padding: 1rem;
+}
+
+.item-container {
+    display: grid;
+    background-color: grey;
+    justify-items: center;
+    padding: 20px;
+    margin: 1rem;
+}
+
+.item-container p {
+    margin: 0.5rem;
+}
+
+.project-container {
+    background-color: lightgray;
+    text-align: center;
+    padding: 1rem;
+    width: 30%;
 }
