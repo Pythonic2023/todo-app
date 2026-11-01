@@ -25,11 +25,58 @@ let body = document.querySelector('body');
 
 body.addEventListener('click', (e) => {
     if(e.target.className === "newTodoButton"){
-        console.log("Hi");
         const dialog = document.createElement('dialog');
+        const newTodoDialogParagraph = document.createElement('h1');
+        newTodoDialogParagraph.classList.add("dialog-header");
+        newTodoDialogParagraph.textContent = "New Todo";
+        dialog.appendChild(newTodoDialogParagraph);
+
+        const form = document.createElement('form');
+        form.classList.add('form');
+        const titleLabel = document.createElement('label');
+        titleLabel.textContent = "Title";
+        const projectLabel = document.createElement('label');
+        projectLabel.textContent = "Project";
+        const noteLabel = document.createElement('label');
+        noteLabel.textContent = "Note"
+        const noteTextArea = document.createElement('textarea');
+        noteTextArea.rows = "15";
+        noteTextArea.cols = "40";
+        noteLabel.appendChild(noteTextArea);
+        const dateLabel = document.createElement('label');
+        dateLabel.textContent = "Date";
+        const dateInput = document.createElement('input');
+        dateInput.type = "date";
+        dateLabel.appendChild(dateInput);
+        const notePriorityLabel = document.createElement('label');
+        notePriorityLabel.textContent = "Priority";
+        const prioritySelect = document.createElement('select');
+        const lowPriorityOption = document.createElement('option');
+        lowPriorityOption.textContent = "Low";
+        const mediumPriorityOption = document.createElement('option');
+        mediumPriorityOption.textContent = "Medium";
+        const highPriorityOption = document.createElement('option');
+        highPriorityOption.textContent = "High";
+        prioritySelect.appendChild(lowPriorityOption);
+        prioritySelect.appendChild(mediumPriorityOption);
+        prioritySelect.appendChild(highPriorityOption);
+        notePriorityLabel.appendChild(prioritySelect);
+
+
+
+
+        const projectInput = document.createElement('input');
+        projectLabel.appendChild(projectInput);
+        const titleInput = document.createElement('input');
+        titleLabel.appendChild(titleInput);
+        dialog.appendChild(form);
+        form.appendChild(titleLabel);
+        form.appendChild(projectLabel);
+        form.appendChild(noteLabel);
+        form.appendChild(dateLabel);
+        form.appendChild(notePriorityLabel);
         dialog.classList.add("todo-dialog");
         const dialogText = document.createElement('p');
-        dialogText.textContent = "Hi";
         dialog.appendChild(dialogText);
         mainContent.appendChild(dialog);
         dialog.showModal();
