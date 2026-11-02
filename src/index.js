@@ -1,7 +1,6 @@
 import {createTodoItem} from "./todoObject.js";
 import { getLocalStorage } from "./localStorage.js";
 import "./index.css";
-import { it } from "date-fns/locale";
 let createdItem = createTodoItem("FIRST", "TheNewProject", "Timmy has caused many bugs, FIX EVERYTHING", "1990/01/25", "Medium");
 let secondCreatedItem = createTodoItem("SECOND", "TheNewProject", "Timmy has caused many bugs, FIX EVERYTHING", "1990/01/25", "Medium");
 let thirdItem = createTodoItem("Rainy", "MyNotes", "I like the rain", "2020/01/10", "Medium");
@@ -31,55 +30,63 @@ body.addEventListener('click', (e) => {
         newTodoDialogParagraph.textContent = "New Todo";
         dialog.appendChild(newTodoDialogParagraph);
 
-        const form = document.createElement('form');
-        form.classList.add('form');
-        const titleLabel = document.createElement('label');
-        titleLabel.textContent = "Title";
-        const projectLabel = document.createElement('label');
-        projectLabel.textContent = "Project";
-        const noteLabel = document.createElement('label');
-        noteLabel.textContent = "Note"
-        const noteTextArea = document.createElement('textarea');
-        noteTextArea.rows = "15";
-        noteTextArea.cols = "40";
-        noteLabel.appendChild(noteTextArea);
-        const dateLabel = document.createElement('label');
-        dateLabel.textContent = "Date";
-        const dateInput = document.createElement('input');
-        dateInput.type = "date";
-        dateLabel.appendChild(dateInput);
-        const notePriorityLabel = document.createElement('label');
-        notePriorityLabel.textContent = "Priority";
-        const prioritySelect = document.createElement('select');
-        const lowPriorityOption = document.createElement('option');
-        lowPriorityOption.textContent = "Low";
-        const mediumPriorityOption = document.createElement('option');
-        mediumPriorityOption.textContent = "Medium";
-        const highPriorityOption = document.createElement('option');
-        highPriorityOption.textContent = "High";
-        prioritySelect.appendChild(lowPriorityOption);
-        prioritySelect.appendChild(mediumPriorityOption);
-        prioritySelect.appendChild(highPriorityOption);
-        notePriorityLabel.appendChild(prioritySelect);
+        (function(){
+            const labels = {
+                titleLabel: document.createElement('label'),
+                projectLabel: document.createElement('label'),
+                noteLabel: document.createElement('label'),
+                dateLabel: document.createElement('label'),
+                priorityLabel: document.createElement('label'),
+            }
+            const dateInput = document.createElement('input');
+            const noteTextArea = document.createElement('textarea');
+            noteTextArea.rows = "15";
+            noteTextArea.cols = "40";
+            const projectInput = document.createElement('input');
+            const titleInput = document.createElement('input');
+            const form = document.createElement('form');
+            const dialogText = document.createElement('p');
+            const prioritySelect = document.createElement('select');
+            const lowPriorityOption = document.createElement('option');
+            const mediumPriorityOption = document.createElement('option');
+            const highPriorityOption = document.createElement('option');
 
 
+            for(const [item, element] of Object.entries(labels)){
+                let itemRegexed = item.replace("Label", "");
+                let capital = itemRegexed.charAt(0).toUpperCase();
+                itemRegexed = itemRegexed.replace(itemRegexed[0], capital);
+                element.textContent = itemRegexed;
+            }
 
 
-        const projectInput = document.createElement('input');
-        projectLabel.appendChild(projectInput);
-        const titleInput = document.createElement('input');
-        titleLabel.appendChild(titleInput);
-        dialog.appendChild(form);
-        form.appendChild(titleLabel);
-        form.appendChild(projectLabel);
-        form.appendChild(noteLabel);
-        form.appendChild(dateLabel);
-        form.appendChild(notePriorityLabel);
-        dialog.classList.add("todo-dialog");
-        const dialogText = document.createElement('p');
-        dialog.appendChild(dialogText);
-        mainContent.appendChild(dialog);
-        dialog.showModal();
+            labels.titleLabel.appendChild(titleInput);
+            labels.projectLabel.appendChild(projectInput);
+            labels.dateLabel.appendChild(dateInput);
+            labels.noteLabel.appendChild(noteTextArea);
+
+            
+            form.appendChild(labels.titleLabel);
+            form.appendChild(labels.projectLabel);
+            form.appendChild(labels.noteLabel);
+            form.appendChild(labels.dateLabel);
+            form.appendChild(labels.priorityLabel);
+
+            lowPriorityOption.textContent = "Low";
+            prioritySelect.appendChild(lowPriorityOption);
+            mediumPriorityOption.textContent = "Medium";
+            prioritySelect.appendChild(mediumPriorityOption);
+            highPriorityOption.textContent = "High";
+            prioritySelect.appendChild(highPriorityOption);
+            labels.priorityLabel.appendChild(prioritySelect);
+
+            dialog.appendChild(form);
+            dialog.classList.add("todo-dialog");
+            dialog.appendChild(dialogText);
+            mainContent.appendChild(dialog);
+            dialog.showModal();
+
+        })();
     }
 })
 
