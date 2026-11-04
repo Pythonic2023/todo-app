@@ -1,8 +1,8 @@
 import {createTodoItem} from "./todoObject.js";
-import { getLocalStorage } from "./localStorage.js";
 import "./index.css";
 
 // Generate header content
+
 const mainContent = document.querySelector('.main-content');
 const header = document.querySelector('.header-content');
 const newTodoButton = document.createElement('button');
@@ -16,6 +16,7 @@ websiteHeader.textContent = "Todo App";
 newTodoButton.textContent = "New Todo";
 header.appendChild(newTodoButton);
 header.appendChild(websiteHeader);
+
 
 let body = document.querySelector('body');
 
@@ -102,44 +103,51 @@ body.addEventListener('click', (e) => {
                 const objectEntries = Object.fromEntries(formData.entries());
                 console.log(`Date passed: ${objectEntries.project}`);
                 createTodoItem(objectEntries);
+                dialog.close();
+                displayTodo();
             })
-
         })();
+        
     }
 })
 
-let object = {...localStorage};
+const displayTodo = function(){
+    mainContent.replaceChildren();
+    let object = {...localStorage};
+    for(const project in object){        
+        const projectContainer = document.createElement('div');
+        projectContainer.classList.add('project-container');
+        const projectTitle = document.createElement('h1');
+        projectTitle.textContent = project;
+        projectContainer.appendChild(projectTitle);
+        mainContent.appendChild(projectContainer);
 
-for(const project in object){
-    
-    const projectContainer = document.createElement('div');
-    projectContainer.classList.add('project-container');
-    const projectTitle = document.createElement('h1');
-    projectTitle.textContent = project;
-    projectContainer.appendChild(projectTitle);
-    mainContent.appendChild(projectContainer);
+        let projectObject = JSON.parse(object[project]);
+        
+        for(const key in projectObject){
+            const itemContainer = document.createElement('div');
+            itemContainer.classList.add('item-container')
 
-    let projectObject = JSON.parse(object[project]);
-    console.log(projectObject);
-    
-    for(const key in projectObject){
-        const itemContainer = document.createElement('div');
-        itemContainer.classList.add('item-container')
+            let noteDate = projectObject[key]['dueDate'];
+            let noteTitle = projectObject[key]['title'];
+            let priority = projectObject[key]['priority'];
 
-        let noteDate = projectObject[key]['dueDate'];
-        console.log(noteDate)
-        let noteTitle = projectObject[key]['title'];
+            const dateElement = document.createElement('p');
+            dateElement.textContent = `Due Date: ${noteDate}`;
 
-        const dateElement = document.createElement('p');
-        dateElement.textContent = `Due Date: ${noteDate}`;
+            const titleElement = document.createElement('p');
+            titleElement.textContent = noteTitle;
 
-        const titleElement = document.createElement('p');
-        titleElement.textContent = noteTitle;
+            const priorityElement = document.createElement('p');
+            priorityElement.textContent = priority;
 
-        itemContainer.appendChild(titleElement);
-        itemContainer.appendChild(dateElement);
-        projectContainer.appendChild(itemContainer);
+            itemContainer.appendChild(titleElement);
+            itemContainer.appendChild(dateElement);
+            itemContainer.appendChild(priorityElement);
+            projectContainer.appendChild(itemContainer);
 
-    }
-    
+        }
 }
+}
+displayTodo();
+    
