@@ -1,9 +1,6 @@
 import {createTodoItem} from "./todoObject.js";
 import { getLocalStorage } from "./localStorage.js";
 import "./index.css";
-let createdItem = createTodoItem("FIRST", "TheNewProject", "Timmy has caused many bugs, FIX EVERYTHING", "1990/01/25", "Medium");
-let secondCreatedItem = createTodoItem("SECOND", "TheNewProject", "Timmy has caused many bugs, FIX EVERYTHING", "1990/01/25", "Medium");
-let thirdItem = createTodoItem("Rainy", "MyNotes", "I like the rain", "2020/01/10", "Medium");
 
 // Generate header content
 const mainContent = document.querySelector('.main-content');
@@ -39,18 +36,27 @@ body.addEventListener('click', (e) => {
                 priorityLabel: document.createElement('label'),
             }
             const dateInput = document.createElement('input');
+            dateInput.name = "date";
+            dateInput.type = 'date';
             const noteTextArea = document.createElement('textarea');
+            noteTextArea.name = "note";
             noteTextArea.rows = "15";
             noteTextArea.cols = "40";
             const projectInput = document.createElement('input');
+            projectInput.name = "project";
             const titleInput = document.createElement('input');
+            titleInput.name = "title";
             const form = document.createElement('form');
+            form.classList.add("modal-form");
+            const formSubmitButton = document.createElement('button');
+            formSubmitButton.textContent = "Submit";
+            formSubmitButton.type = "submit";
             const dialogText = document.createElement('p');
             const prioritySelect = document.createElement('select');
+            prioritySelect.name = "priority";
             const lowPriorityOption = document.createElement('option');
             const mediumPriorityOption = document.createElement('option');
             const highPriorityOption = document.createElement('option');
-
 
             for(const [item, element] of Object.entries(labels)){
                 let itemRegexed = item.replace("Label", "");
@@ -71,6 +77,7 @@ body.addEventListener('click', (e) => {
             form.appendChild(labels.noteLabel);
             form.appendChild(labels.dateLabel);
             form.appendChild(labels.priorityLabel);
+            form.appendChild(formSubmitButton);
 
             lowPriorityOption.textContent = "Low";
             prioritySelect.appendChild(lowPriorityOption);
@@ -85,6 +92,17 @@ body.addEventListener('click', (e) => {
             dialog.appendChild(dialogText);
             mainContent.appendChild(dialog);
             dialog.showModal();
+
+            const formElement = document.querySelector('.modal-form');
+            formElement.addEventListener('submit', (event) => {
+                e.preventDefault();
+                console.log(event.target)
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const objectEntries = Object.fromEntries(formData.entries());
+                console.log(`Date passed: ${objectEntries.project}`);
+                createTodoItem(objectEntries);
+            })
 
         })();
     }
