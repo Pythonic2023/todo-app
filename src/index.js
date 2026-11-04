@@ -1,11 +1,8 @@
 import {createTodoItem} from "./todoObject.js";
-import { getLocalStorage } from "./localStorage.js";
 import "./index.css";
-let createdItem = createTodoItem("FIRST", "TheNewProject", "Timmy has caused many bugs, FIX EVERYTHING", "1990/01/25", "Medium");
-let secondCreatedItem = createTodoItem("SECOND", "TheNewProject", "Timmy has caused many bugs, FIX EVERYTHING", "1990/01/25", "Medium");
-let thirdItem = createTodoItem("Rainy", "MyNotes", "I like the rain", "2020/01/10", "Medium");
 
 // Generate header content
+
 const mainContent = document.querySelector('.main-content');
 const header = document.querySelector('.header-content');
 const newTodoButton = document.createElement('button');
@@ -19,6 +16,7 @@ websiteHeader.textContent = "Todo App";
 newTodoButton.textContent = "New Todo";
 header.appendChild(newTodoButton);
 header.appendChild(websiteHeader);
+
 
 let body = document.querySelector('body');
 
@@ -39,18 +37,27 @@ body.addEventListener('click', (e) => {
                 priorityLabel: document.createElement('label'),
             }
             const dateInput = document.createElement('input');
+            dateInput.name = "date";
+            dateInput.type = 'date';
             const noteTextArea = document.createElement('textarea');
+            noteTextArea.name = "note";
             noteTextArea.rows = "15";
             noteTextArea.cols = "40";
             const projectInput = document.createElement('input');
+            projectInput.name = "project";
             const titleInput = document.createElement('input');
+            titleInput.name = "title";
             const form = document.createElement('form');
+            form.classList.add("modal-form");
+            const formSubmitButton = document.createElement('button');
+            formSubmitButton.textContent = "Submit";
+            formSubmitButton.type = "submit";
             const dialogText = document.createElement('p');
             const prioritySelect = document.createElement('select');
+            prioritySelect.name = "priority";
             const lowPriorityOption = document.createElement('option');
             const mediumPriorityOption = document.createElement('option');
             const highPriorityOption = document.createElement('option');
-
 
             for(const [item, element] of Object.entries(labels)){
                 let itemRegexed = item.replace("Label", "");
@@ -71,6 +78,7 @@ body.addEventListener('click', (e) => {
             form.appendChild(labels.noteLabel);
             form.appendChild(labels.dateLabel);
             form.appendChild(labels.priorityLabel);
+            form.appendChild(formSubmitButton);
 
             lowPriorityOption.textContent = "Low";
             prioritySelect.appendChild(lowPriorityOption);
@@ -86,42 +94,60 @@ body.addEventListener('click', (e) => {
             mainContent.appendChild(dialog);
             dialog.showModal();
 
+            const formElement = document.querySelector('.modal-form');
+            formElement.addEventListener('submit', (event) => {
+                e.preventDefault();
+                console.log(event.target)
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const objectEntries = Object.fromEntries(formData.entries());
+                console.log(`Date passed: ${objectEntries.project}`);
+                createTodoItem(objectEntries);
+                dialog.close();
+                displayTodo();
+            })
         })();
+        
     }
 })
 
-let object = {...localStorage};
+const displayTodo = function(){
+    mainContent.replaceChildren();
+    let object = {...localStorage};
+    for(const project in object){        
+        const projectContainer = document.createElement('div');
+        projectContainer.classList.add('project-container');
+        const projectTitle = document.createElement('h1');
+        projectTitle.textContent = project;
+        projectContainer.appendChild(projectTitle);
+        mainContent.appendChild(projectContainer);
 
-for(const project in object){
-    
-    const projectContainer = document.createElement('div');
-    projectContainer.classList.add('project-container');
-    const projectTitle = document.createElement('h1');
-    projectTitle.textContent = project;
-    projectContainer.appendChild(projectTitle);
-    mainContent.appendChild(projectContainer);
+        let projectObject = JSON.parse(object[project]);
+        
+        for(const key in projectObject){
+            const itemContainer = document.createElement('div');
+            itemContainer.classList.add('item-container')
 
-    let projectObject = JSON.parse(object[project]);
-    console.log(projectObject);
-    
-    for(const key in projectObject){
-        const itemContainer = document.createElement('div');
-        itemContainer.classList.add('item-container')
+            let noteDate = projectObject[key]['dueDate'];
+            let noteTitle = projectObject[key]['title'];
+            let priority = projectObject[key]['priority'];
 
-        let noteDate = projectObject[key]['dueDate'];
-        console.log(noteDate)
-        let noteTitle = projectObject[key]['title'];
+            const dateElement = document.createElement('p');
+            dateElement.textContent = `Due Date: ${noteDate}`;
 
-        const dateElement = document.createElement('p');
-        dateElement.textContent = `Due Date: ${noteDate}`;
+            const titleElement = document.createElement('p');
+            titleElement.textContent = noteTitle;
 
-        const titleElement = document.createElement('p');
-        titleElement.textContent = noteTitle;
+            const priorityElement = document.createElement('p');
+            priorityElement.textContent = priority;
 
-        itemContainer.appendChild(titleElement);
-        itemContainer.appendChild(dateElement);
-        projectContainer.appendChild(itemContainer);
+            itemContainer.appendChild(titleElement);
+            itemContainer.appendChild(dateElement);
+            itemContainer.appendChild(priorityElement);
+            projectContainer.appendChild(itemContainer);
 
-    }
-    
+        }
 }
+}
+displayTodo();
+    

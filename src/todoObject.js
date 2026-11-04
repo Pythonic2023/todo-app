@@ -6,7 +6,7 @@ class TodoItem{
         this.title = title;
         this.project = (!project) ? "Default Project" : project;
         this.description = description;
-        this.dueDate = format(new Date(dueDate), "yyyy/MMM/dd");
+        this.dueDate = dueDate//format(new Date(dueDate), "yyyy-M-dd");
         this.priority = priority;
         //this.uuid = this.generateUUID();
         this.status = status;
@@ -14,11 +14,11 @@ class TodoItem{
     }
 }
 
-let createTodoItem = function(...args){
-    let project = args[1];
+let createTodoItem = function(object){
+    let project = object.project;
     let projectObject = {};
     let storageResult = checkLocalStorage(project);
-    let newItem = new TodoItem(...args);
+    let newItem = new TodoItem(...Object.values(object));
 
     if(storageResult != null){
         projectObject[newItem.title] = newItem;
