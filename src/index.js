@@ -142,6 +142,19 @@ const displayTodo = function(){
             titleElement.textContent = noteTitle;
 
             const priorityElement = document.createElement('p');
+
+            switch(priority){
+                case "Low":
+                    priorityElement.classList.add("low-priority");
+                    break;
+                case "Medium":
+                    priorityElement.classList.add("medium-priority");
+                    break;
+                case "High":
+                    priorityElement.classList.add("high-priority");
+                    break;
+            }
+
             priorityElement.textContent = priority;
 
             itemContainer.appendChild(titleElement);
