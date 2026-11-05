@@ -113,6 +113,8 @@ body.addEventListener('click', (e) => {
 
 const displayTodo = function(){
     mainContent.replaceChildren();
+    const projectDivision = document.createElement('div');
+    projectDivision.classList.add('project-division');
     let object = {...localStorage};
     for(const project in object){        
         const projectContainer = document.createElement('div');
@@ -120,7 +122,8 @@ const displayTodo = function(){
         const projectTitle = document.createElement('h1');
         projectTitle.textContent = project;
         projectContainer.appendChild(projectTitle);
-        mainContent.appendChild(projectContainer);
+        mainContent.appendChild(projectDivision);
+        projectDivision.appendChild(projectContainer);
 
         let projectObject = JSON.parse(object[project]);
         

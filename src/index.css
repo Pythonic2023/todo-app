@@ -35,16 +35,16 @@ body {
 .main-content {
     display: flex;
     gap: 5px;
-    padding: 1rem;
     flex-wrap: wrap;
 }
 
 .item-container {
     display: grid;
     background-color: grey;
+    border: 1px solid black;
+    margin-top: 1rem;
     justify-items: center;
     padding: 20px;
-    margin: 1rem;
 }
 
 .item-container p {
@@ -54,8 +54,10 @@ body {
 .project-container {
     background-color: lightgray;
     text-align: center;
+    width: 1fr;
+    height: fit-content;
+    gap: 1rem;
     padding: 1rem;
-    width: 30%;
 }
 
 /*Sets transparency to set focus on the modal*/
@@ -76,4 +78,12 @@ label {
 
 .dialog-header {
     text-align: center;
+}
+
+.project-division {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100vw;
 }
