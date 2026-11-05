@@ -87,3 +87,18 @@ label {
     padding: 1rem;
     width: 100vw;
 }
+
+.low-priority {
+    padding: 0 1rem 0 1rem;
+    background-color: green;
+}
+
+.medium-priority {
+    padding: 0 1rem 0 1rem;
+    background-color: yellow;
+}
+
+.high-priority {
+    padding: 0 1rem 0 1rem;
+    background-color: red;
+}
