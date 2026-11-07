@@ -129,19 +129,29 @@ const displayTodo = function(){
         
         for(const key in projectObject){
             const itemContainer = document.createElement('div');
-            itemContainer.classList.add('item-container')
+            itemContainer.classList.add('item-container');
 
             let noteDate = projectObject[key]['dueDate'];
+            const todoItemContainer = document.createElement('div');
+            todoItemContainer.classList.add('todo-item-container');
+            const viewTodoButton = document.createElement('button');
+            viewTodoButton.classList.add('view-todo');
+            viewTodoButton.textContent = "View";
             let noteTitle = projectObject[key]['title'];
+            const titleElement = document.createElement('p');
+            titleElement.classList.add('title-element');
+            titleElement.textContent = noteTitle;
             let priority = projectObject[key]['priority'];
 
             const dateElement = document.createElement('p');
+            dateElement.classList.add('date-element');
             dateElement.textContent = `Due Date: ${noteDate}`;
 
-            const titleElement = document.createElement('p');
-            titleElement.textContent = noteTitle;
-
+            const priorityParagraph = document.createElement('p');
+            priorityParagraph.classList.add('priority');
+            priorityParagraph.textContent = "Priority: ";
             const priorityElement = document.createElement('p');
+            priorityElement.classList.add('priority');
 
             switch(priority){
                 case "Low":
@@ -157,8 +167,10 @@ const displayTodo = function(){
 
             priorityElement.textContent = priority;
 
+            itemContainer.appendChild(viewTodoButton);
             itemContainer.appendChild(titleElement);
             itemContainer.appendChild(dateElement);
+            itemContainer.appendChild(priorityParagraph);
             itemContainer.appendChild(priorityElement);
             projectContainer.appendChild(itemContainer);
 

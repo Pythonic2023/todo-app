@@ -40,16 +40,22 @@ body {
 
 .item-container {
     display: grid;
+    grid-template-areas:
+        "view-todo title"
+        ". date"
+        ". priority"
+    ;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
     background-color: grey;
     border: 1px solid black;
     margin-top: 1rem;
-    justify-items: center;
     padding: 20px;
+    text-align: center;
 }
 
-.item-container p {
-    margin: 0.5rem;
-}
+
+
 
 .project-container {
     background-color: lightgray;
@@ -101,4 +107,29 @@ label {
 .high-priority {
     padding: 0 1rem 0 1rem;
     background-color: red;
+}
+
+.priority-division {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.title-element {
+    text-align: center;
+    grid-area: title;
+}
+
+.view-todo {
+    grid-area: view-todo;
+    width: fit-content;
+    height: fit-content;
+}
+
+.date-element {
+    grid-area: date;
+}
+
+.priority {
+    grid-area: priority;
 }
