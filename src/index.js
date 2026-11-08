@@ -1,5 +1,6 @@
 import {createTodoItem} from "./todoObject.js";
 import "./index.css";
+import { getLocalStorage } from "./localStorage.js";
 
 // Generate header content
 
@@ -22,6 +23,23 @@ let body = document.querySelector('body');
 
 body.addEventListener('click', (e) => {
     if(e.target.className === "newTodoButton"){
+       newTodoClick(e);
+    } else if(e.target.className === "view-todo"){
+        viewTodoClick(e);
+    }
+})
+
+const viewTodoClick = function(e){
+    let childClass = e.target.className;
+    let child = document.querySelector(`.${childClass}`);
+    let projectContainer = child.parentNode.parentNode;
+    let projectNode = projectContainer.querySelector('.project-name');
+    let projectNodeText = projectNode.textContent;
+
+    let retresult = getLocalStorage(projectNodeText); // Left off here, create popup of todo.
+}
+
+const newTodoClick = function(){
         const dialog = document.createElement('dialog');
         const newTodoDialogParagraph = document.createElement('h1');
         newTodoDialogParagraph.classList.add("dialog-header");
@@ -96,7 +114,6 @@ body.addEventListener('click', (e) => {
 
             const formElement = document.querySelector('.modal-form');
             formElement.addEventListener('submit', (event) => {
-                e.preventDefault();
                 console.log(event.target)
                 event.preventDefault();
                 const formData = new FormData(event.target);
@@ -107,9 +124,7 @@ body.addEventListener('click', (e) => {
                 displayTodo();
             })
         })();
-        
-    }
-})
+}
 
 const displayTodo = function(){
     mainContent.replaceChildren();
@@ -120,6 +135,7 @@ const displayTodo = function(){
         const projectContainer = document.createElement('div');
         projectContainer.classList.add('project-container');
         const projectTitle = document.createElement('h1');
+        projectTitle.classList.add('project-name');
         projectTitle.textContent = project;
         projectContainer.appendChild(projectTitle);
         mainContent.appendChild(projectDivision);
