@@ -147,11 +147,15 @@ const displayTodo = function(){
             dateElement.classList.add('date-element');
             dateElement.textContent = `Due Date: ${noteDate}`;
 
+            const priorityDivision = document.createElement('div');
+            priorityDivision.classList.add('priority-division');
             const priorityParagraph = document.createElement('p');
             priorityParagraph.classList.add('priority');
             priorityParagraph.textContent = "Priority: ";
             const priorityElement = document.createElement('p');
-            priorityElement.classList.add('priority');
+            priorityElement.classList.add('priority-element');
+            priorityDivision.appendChild(priorityParagraph);
+            priorityDivision.appendChild(priorityElement);
 
             switch(priority){
                 case "Low":
@@ -170,8 +174,7 @@ const displayTodo = function(){
             itemContainer.appendChild(viewTodoButton);
             itemContainer.appendChild(titleElement);
             itemContainer.appendChild(dateElement);
-            itemContainer.appendChild(priorityParagraph);
-            itemContainer.appendChild(priorityElement);
+            itemContainer.appendChild(priorityDivision);
             projectContainer.appendChild(itemContainer);
 
         }

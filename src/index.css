@@ -43,7 +43,7 @@ body {
     grid-template-areas:
         "view-todo title"
         ". date"
-        ". priority"
+        ". priority-division"
     ;
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-columns: 1fr 2fr 1fr;
@@ -51,11 +51,7 @@ body {
     border: 1px solid black;
     margin-top: 1rem;
     padding: 20px;
-    text-align: center;
 }
-
-
-
 
 .project-container {
     background-color: lightgray;
@@ -95,16 +91,19 @@ label {
 }
 
 .low-priority {
+    width: fit-content;
     padding: 0 1rem 0 1rem;
     background-color: green;
 }
 
 .medium-priority {
+    width: fit-content;
     padding: 0 1rem 0 1rem;
     background-color: yellow;
 }
 
 .high-priority {
+    width: fit-content;
     padding: 0 1rem 0 1rem;
     background-color: red;
 }
@@ -130,6 +129,6 @@ label {
     grid-area: date;
 }
 
-.priority {
-    grid-area: priority;
+.priority-division {
+    grid-area: priority-division;
 }
