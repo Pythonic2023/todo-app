@@ -32,11 +32,23 @@ body.addEventListener('click', (e) => {
 const viewTodoClick = function(e){
     let childClass = e.target.className;
     let child = document.querySelector(`.${childClass}`);
+    let itemContainer = child.parentNode;
+    let titleNode = itemContainer.querySelector('.title-element')
+    let titleNodeTextContent = titleNode.textContent;
     let projectContainer = child.parentNode.parentNode;
     let projectNode = projectContainer.querySelector('.project-name');
     let projectNodeText = projectNode.textContent;
 
     let retresult = getLocalStorage(projectNodeText); // Left off here, create popup of todo.
+    let itemObject = retresult[titleNodeTextContent];
+    let itemObjectDescription = itemObject.description;
+    let itemDescriptionDialog = document.createElement('dialog');
+    let todoContentParagraph = document.createElement('p');
+    todoContentParagraph.textContent = itemObjectDescription;
+    itemDescriptionDialog.appendChild(todoContentParagraph);
+    body.appendChild(itemDescriptionDialog);
+    itemDescriptionDialog.showModal();
+
 }
 
 const newTodoClick = function(){
