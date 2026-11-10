@@ -21,7 +21,7 @@ header.appendChild(websiteHeader);
 
 let body = document.querySelector('body');
 
-body.addEventListener('click', (e) => {
+body.addEventListener('click', function(e) {
     if(e.target.className === "newTodoButton"){
        newTodoClick(e);
     } else if(e.target.className === "view-todo"){
@@ -30,25 +30,24 @@ body.addEventListener('click', (e) => {
 })
 
 const viewTodoClick = function(e){
-    let childClass = e.target.className;
-    let child = document.querySelector(`.${childClass}`);
-    let itemContainer = child.parentNode;
-    let titleNode = itemContainer.querySelector('.title-element')
-    let titleNodeTextContent = titleNode.textContent;
-    let projectContainer = child.parentNode.parentNode;
-    let projectNode = projectContainer.querySelector('.project-name');
-    let projectNodeText = projectNode.textContent;
+    // Pick the right one and not just first element which matches.
+    let project = e.target.parentNode.parentNode.querySelector('.project-name').textContent;
+    let title = e.target.parentNode.querySelector('.title-element').textContent;
+    let projectObject = getLocalStorage(project);
+    let todoObject = projectObject[title];
+    let description = todoObject['description'];
+    let descriptionParagraph = document.createElement('p');
+    descriptionParagraph.textContent = description;
+    let descriptionModal = document.createElement('dialog');
+    let modalCloseButton = document.createElement('button');
+    modalCloseButton.addEventListener('click', () => descriptionModal.close());
+    modalCloseButton.textContent = 'x';
+    descriptionModal.appendChild(modalCloseButton);
+    descriptionModal.appendChild(descriptionParagraph);
+    mainContent.appendChild(descriptionModal);
+    descriptionModal.showModal();
 
-    let retresult = getLocalStorage(projectNodeText); // Left off here, create popup of todo.
-    let itemObject = retresult[titleNodeTextContent];
-    let itemObjectDescription = itemObject.description;
-    let itemDescriptionDialog = document.createElement('dialog');
-    let todoContentParagraph = document.createElement('p');
-    todoContentParagraph.textContent = itemObjectDescription;
-    itemDescriptionDialog.appendChild(todoContentParagraph);
-    body.appendChild(itemDescriptionDialog);
-    itemDescriptionDialog.showModal();
-
+    
 }
 
 const newTodoClick = function(){
