@@ -36,14 +36,19 @@ const viewTodoClick = function(e){
     let projectObject = getLocalStorage(project);
     let todoObject = projectObject[title];
     let description = todoObject['description'];
+    let descriptionDivision = document.createElement('div');
+    descriptionDivision.classList.add('description-division');
     let descriptionParagraph = document.createElement('p');
+    descriptionParagraph.classList.add('description');
     descriptionParagraph.textContent = description;
     let descriptionModal = document.createElement('dialog');
+    descriptionModal.classList.add('description-modal');
     let modalCloseButton = document.createElement('button');
     modalCloseButton.addEventListener('click', () => descriptionModal.close());
     modalCloseButton.textContent = 'x';
     descriptionModal.appendChild(modalCloseButton);
-    descriptionModal.appendChild(descriptionParagraph);
+    descriptionDivision.appendChild(descriptionParagraph);
+    descriptionModal.appendChild(descriptionDivision);
     mainContent.appendChild(descriptionModal);
     descriptionModal.showModal();
 

@@ -132,3 +132,25 @@ label {
 .priority-division {
     grid-area: priority-division;
 }
+
+.description-modal {
+    height: 30vh;
+    width: 30vw;
+}
+
+.description-modal button {
+    position: fixed;
+}
+
+.description-division {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.description {
+    padding: 1.5rem;
+    text-align: justify;
+}
+
+
