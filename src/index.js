@@ -1,5 +1,6 @@
 import {createTodoItem} from "./todoObject.js";
 import "./index.css";
+import { getLocalStorage } from "./localStorage.js";
 
 // Generate header content
 
@@ -20,8 +21,41 @@ header.appendChild(websiteHeader);
 
 let body = document.querySelector('body');
 
-body.addEventListener('click', (e) => {
+body.addEventListener('click', function(e) {
     if(e.target.className === "newTodoButton"){
+       newTodoClick(e);
+    } else if(e.target.className === "view-todo"){
+        viewTodoClick(e);
+    }
+})
+
+const viewTodoClick = function(e){
+    // Pick the right one and not just first element which matches.
+    let project = e.target.parentNode.parentNode.querySelector('.project-name').textContent;
+    let title = e.target.parentNode.querySelector('.title-element').textContent;
+    let projectObject = getLocalStorage(project);
+    let todoObject = projectObject[title];
+    let description = todoObject['description'];
+    let descriptionDivision = document.createElement('div');
+    descriptionDivision.classList.add('description-division');
+    let descriptionParagraph = document.createElement('p');
+    descriptionParagraph.classList.add('description');
+    descriptionParagraph.textContent = description;
+    let descriptionModal = document.createElement('dialog');
+    descriptionModal.classList.add('description-modal');
+    let modalCloseButton = document.createElement('button');
+    modalCloseButton.addEventListener('click', () => descriptionModal.close());
+    modalCloseButton.textContent = 'x';
+    descriptionModal.appendChild(modalCloseButton);
+    descriptionDivision.appendChild(descriptionParagraph);
+    descriptionModal.appendChild(descriptionDivision);
+    mainContent.appendChild(descriptionModal);
+    descriptionModal.showModal();
+
+    
+}
+
+const newTodoClick = function(){
         const dialog = document.createElement('dialog');
         const newTodoDialogParagraph = document.createElement('h1');
         newTodoDialogParagraph.classList.add("dialog-header");
@@ -96,7 +130,6 @@ body.addEventListener('click', (e) => {
 
             const formElement = document.querySelector('.modal-form');
             formElement.addEventListener('submit', (event) => {
-                e.preventDefault();
                 console.log(event.target)
                 event.preventDefault();
                 const formData = new FormData(event.target);
@@ -107,9 +140,7 @@ body.addEventListener('click', (e) => {
                 displayTodo();
             })
         })();
-        
-    }
-})
+}
 
 const displayTodo = function(){
     mainContent.replaceChildren();
@@ -120,6 +151,7 @@ const displayTodo = function(){
         const projectContainer = document.createElement('div');
         projectContainer.classList.add('project-container');
         const projectTitle = document.createElement('h1');
+        projectTitle.classList.add('project-name');
         projectTitle.textContent = project;
         projectContainer.appendChild(projectTitle);
         mainContent.appendChild(projectDivision);
@@ -129,19 +161,33 @@ const displayTodo = function(){
         
         for(const key in projectObject){
             const itemContainer = document.createElement('div');
-            itemContainer.classList.add('item-container')
+            itemContainer.classList.add('item-container');
 
             let noteDate = projectObject[key]['dueDate'];
+            const todoItemContainer = document.createElement('div');
+            todoItemContainer.classList.add('todo-item-container');
+            const viewTodoButton = document.createElement('button');
+            viewTodoButton.classList.add('view-todo');
+            viewTodoButton.textContent = "View";
             let noteTitle = projectObject[key]['title'];
+            const titleElement = document.createElement('p');
+            titleElement.classList.add('title-element');
+            titleElement.textContent = noteTitle;
             let priority = projectObject[key]['priority'];
 
             const dateElement = document.createElement('p');
+            dateElement.classList.add('date-element');
             dateElement.textContent = `Due Date: ${noteDate}`;
 
-            const titleElement = document.createElement('p');
-            titleElement.textContent = noteTitle;
-
+            const priorityDivision = document.createElement('div');
+            priorityDivision.classList.add('priority-division');
+            const priorityParagraph = document.createElement('p');
+            priorityParagraph.classList.add('priority');
+            priorityParagraph.textContent = "Priority: ";
             const priorityElement = document.createElement('p');
+            priorityElement.classList.add('priority-element');
+            priorityDivision.appendChild(priorityParagraph);
+            priorityDivision.appendChild(priorityElement);
 
             switch(priority){
                 case "Low":
@@ -157,9 +203,10 @@ const displayTodo = function(){
 
             priorityElement.textContent = priority;
 
+            itemContainer.appendChild(viewTodoButton);
             itemContainer.appendChild(titleElement);
             itemContainer.appendChild(dateElement);
-            itemContainer.appendChild(priorityElement);
+            itemContainer.appendChild(priorityDivision);
             projectContainer.appendChild(itemContainer);
 
         }
