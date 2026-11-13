@@ -1,6 +1,8 @@
 import {createTodoItem} from "./todoObject.js";
 import "./index.css";
-import { getLocalStorage } from "./localStorage.js";
+import { getLocalStorage, deleteLocalStorage } from "./localStorage.js";
+
+export { displayTodo };
 
 // Generate header content
 
@@ -26,6 +28,8 @@ body.addEventListener('click', function(e) {
        newTodoClick(e);
     } else if(e.target.className === "view-todo"){
         viewTodoClick(e);
+    } else if(e.target.className === "delete-button"){
+        deleteTodo(e);
     }
 })
 
@@ -51,8 +55,12 @@ const viewTodoClick = function(e){
     descriptionModal.appendChild(descriptionDivision);
     mainContent.appendChild(descriptionModal);
     descriptionModal.showModal();
+}
 
-    
+const deleteTodo = function(e) {
+    let project = e.target.parentNode.parentNode.querySelector('.project-name').textContent;
+    let title = e.target.parentNode.querySelector('.title-element').textContent;
+    deleteLocalStorage(project, title);
 }
 
 const newTodoClick = function(){
@@ -169,6 +177,9 @@ const displayTodo = function(){
             const viewTodoButton = document.createElement('button');
             viewTodoButton.classList.add('view-todo');
             viewTodoButton.textContent = "View";
+            const deleteTodoButton = document.createElement('button');
+            deleteTodoButton.classList.add('delete-button');
+            deleteTodoButton.textContent = "Delete";
             let noteTitle = projectObject[key]['title'];
             const titleElement = document.createElement('p');
             titleElement.classList.add('title-element');
@@ -205,6 +216,7 @@ const displayTodo = function(){
 
             itemContainer.appendChild(viewTodoButton);
             itemContainer.appendChild(titleElement);
+            itemContainer.appendChild(deleteTodoButton);
             itemContainer.appendChild(dateElement);
             itemContainer.appendChild(priorityDivision);
             projectContainer.appendChild(itemContainer);

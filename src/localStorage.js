@@ -1,3 +1,4 @@
+import { displayTodo } from "./index.js";
 
 let addLocalStorage = function(project, todoItem){
     let stringifiedTodoItem = JSON.stringify(todoItem);
@@ -10,4 +11,15 @@ let getLocalStorage = function(project){
     return toObject;
 }
 
-export {getLocalStorage, addLocalStorage};
+let deleteLocalStorage = function(project, item){
+    let storageProject = getLocalStorage(project);
+    delete storageProject[item];
+    if(Object.keys(storageProject).length == 0){
+        localStorage.removeItem(project);
+    } else {
+        localStorage.setItem(project, JSON.stringify(storageProject));
+    }
+    displayTodo();
+}
+
+export {getLocalStorage, addLocalStorage, deleteLocalStorage};

@@ -125,6 +125,12 @@ label {
     height: fit-content;
 }
 
+.delete-button {
+    width: fit-content;
+    height: fit-content;
+    justify-self: flex-end;
+}
+
 .date-element {
     grid-area: date;
 }
