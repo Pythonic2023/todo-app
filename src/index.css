@@ -1,5 +1,6 @@
 *  {
     box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
 }
 
 html, body {
@@ -23,7 +24,6 @@ html, body {
     justify-self: center;
     color: #FAF9F9;
     font-size: 2.5rem;
-    font-family: "Roboto", sans-serif;
 }
 
 .newTodoButton {
@@ -34,7 +34,6 @@ html, body {
     border-radius: 15px;
     background-color: #F8F7FF;
     font-size: 1rem;
-    font-family: "Roboto", sans-serif;
 }
 
 .newTodoButton:hover {
@@ -45,7 +44,6 @@ html, body {
     display: flex;
     gap: 5px;
     flex-wrap: wrap;
-    height: 100vh;
     background-color: #343434;
 }
 
@@ -60,12 +58,16 @@ html, body {
     grid-template-columns: 1fr 2fr 1fr;
     background-color: grey;
     border: 1px solid black;
+    border-radius: 1rem;
     margin-top: 1rem;
     padding: 20px;
+    background-color: #F8E9E9;
+    font-size: 1.2rem;
 }
 
 .project-container {
-    background-color: lightgray;
+    background-color: #81889F;
+    border-radius: 1rem;
     text-align: center;
     width: 1fr;
     height: fit-content;
@@ -104,19 +106,22 @@ label {
 .low-priority {
     width: fit-content;
     padding: 0 1rem 0 1rem;
-    background-color: green;
+    background-color: #69995D;
+    border-radius: 2rem;
 }
 
 .medium-priority {
     width: fit-content;
     padding: 0 1rem 0 1rem;
-    background-color: yellow;
+    background-color: #FDE74C;
+    border-radius: 2rem;
 }
 
 .high-priority {
     width: fit-content;
     padding: 0 1rem 0 1rem;
-    background-color: red;
+    background-color: #E55934;
+    border-radius: 2rem;
 }
 
 .priority-division {
@@ -134,12 +139,14 @@ label {
     grid-area: view-todo;
     width: fit-content;
     height: fit-content;
+    font-size: 1rem;
 }
 
 .delete-button {
     width: fit-content;
     height: fit-content;
     justify-self: flex-end;
+    font-size: 1rem;
 }
 
 .date-element {
@@ -153,6 +160,9 @@ label {
 .description-modal {
     height: 30vh;
     width: 30vw;
+    background-color: #C0C5C1;
+    border: 3px solid black;
+    border-radius: 1rem;
 }
 
 .description-modal button {
