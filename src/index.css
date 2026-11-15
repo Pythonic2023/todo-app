@@ -41,9 +41,7 @@ html, body {
 }
 
 .main-content {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
+    height: 100vh;
     background-color: #343434;
 }
 
@@ -66,6 +64,7 @@ html, body {
 }
 
 .project-container {
+    display: grid;
     background-color: #81889F;
     border-radius: 1rem;
     text-align: center;
@@ -83,6 +82,7 @@ dialog::backdrop {
 .form {
     display: flex;
     flex-direction: column;
+    background-color: #81889F;
     gap: 1rem;
 }
 
@@ -95,12 +95,17 @@ label {
     text-align: center;
 }
 
+dialog {
+    border: 3px solid black;
+    border-radius: 1rem;
+}
+
 .project-division {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: minmax(0, 372px);
     gap: 1rem;
     padding: 1rem;
-    width: 100%;
 }
 
 .low-priority {
@@ -178,6 +183,11 @@ label {
 .description {
     padding: 1.5rem;
     text-align: justify;
+    font-size: 1rem;
+}
+
+form label, button{
+    margin-top: 1rem;
 }
 
 
