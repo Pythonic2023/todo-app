@@ -1,6 +1,6 @@
 import {createTodoItem} from "./todoObject.js";
 import "./index.css";
-import { getLocalStorage, deleteLocalStorage } from "./localStorage.js";
+import { getLocalStorage, deleteLocalStorage, addLocalStorage } from "./localStorage.js";
 
 export { displayTodo };
 
@@ -48,13 +48,59 @@ const viewTodoClick = function(e){
     let descriptionModal = document.createElement('dialog');
     descriptionModal.classList.add('description-modal');
     let modalCloseButton = document.createElement('button');
+    modalCloseButton.classList.add('close-modal-button');
     modalCloseButton.addEventListener('click', () => descriptionModal.close());
     modalCloseButton.textContent = 'x';
-    descriptionModal.appendChild(modalCloseButton);
+    let modalEditButton = document.createElement('button');
+    modalEditButton.classList.add('modal-edit-button');
+    modalEditButton.addEventListener('click', () => editTodo(e));
+    modalEditButton.textContent = "e";
+    descriptionDivision.appendChild(modalCloseButton);
+    descriptionDivision.appendChild(modalEditButton);
+    descriptionModal.appendChild(descriptionDivision);
+    descriptionModal.appendChild(descriptionDivision);
     descriptionDivision.appendChild(descriptionParagraph);
     descriptionModal.appendChild(descriptionDivision);
     mainContent.appendChild(descriptionModal);
     descriptionModal.showModal();
+}
+
+const editTodo = function(e){
+    let descriptionModal = document.querySelector('.description-modal');
+    let projectText = e.target.parentNode.parentNode.querySelector('.project-name').textContent;
+    let title = e.target.parentNode.querySelector('.title-element').textContent;
+    let projectObject = getLocalStorage(projectText);
+    let todoObjectDescription = projectObject[title].description;
+    let closeEditButton = document.createElement('button');
+    closeEditButton.textContent = "x";
+    closeEditButton.addEventListener('click', () => descriptionModal.close());
+    let editTextarea = document.createElement('textarea');
+    let submitTextaarea = document.createElement('button');
+    submitTextaarea.addEventListener('click', () => changeTodoDescription(projectText, title, editTextarea.value));
+
+    submitTextaarea.textContent = "Submit";
+    editTextarea.name = "edittextarea";
+    editTextarea.rows = 15;
+    editTextarea.cols = 40;
+    editTextarea.textContent = todoObjectDescription;
+
+    let modalDescription = document.querySelector('.description-division');
+    modalDescription.classList.add('editTodo');
+    modalDescription.classList.remove('description-division');
+    modalDescription.replaceChildren('');
+    modalDescription.appendChild(closeEditButton);
+    modalDescription.appendChild(editTextarea);
+    modalDescription.appendChild(submitTextaarea);
+}
+
+// I have to make it so the object gets prepended with a title
+const changeTodoDescription = function(project, title, newDescription){
+    let storageResult = getLocalStorage(project);
+    let todoItem = storageResult[title];
+    todoItem.description = newDescription;
+    let finalObject = {[title]: todoItem};
+    localStorage.setItem(project, JSON.stringify(finalObject));
+
 }
 
 const deleteTodo = function(e) {
@@ -138,11 +184,9 @@ const newTodoClick = function(){
 
             const formElement = document.querySelector('.modal-form');
             formElement.addEventListener('submit', (event) => {
-                console.log(event.target)
                 event.preventDefault();
                 const formData = new FormData(event.target);
                 const objectEntries = Object.fromEntries(formData.entries());
-                console.log(`Date passed: ${objectEntries.project}`);
                 createTodoItem(objectEntries);
                 dialog.close();
                 displayTodo();
