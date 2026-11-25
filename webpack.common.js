@@ -1,5 +1,6 @@
 import path from "node:path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import { use } from "react";
 
 export default {
     entry: "./src/index.js",
@@ -13,4 +14,12 @@ export default {
             template: "./src/template.html",
         }),
     ],
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"],
+            },
+        ],
+    },
 }
