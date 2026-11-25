@@ -1,6 +1,6 @@
 import {createTodoItem} from "./todoObject.js";
 import "./index.css";
-import { getLocalStorage, deleteLocalStorage, addLocalStorage } from "./localStorage.js";
+import { getLocalStorage, deleteLocalStorage } from "./localStorage.js";
 
 export { displayTodo };
 
@@ -30,11 +30,32 @@ body.addEventListener('click', function(e) {
         viewTodoClick(e);
     } else if(e.target.className === "delete-button"){
         deleteTodo(e);
+    } else if(e.target.className === "change-status"){
+        changeStatus(e);
     }
 })
 
+let changeStatus = function(e){
+    let {projectObject, todoObject} = obtainProjectItem(e);
+    if(todoObject['status'] === "Incomplete"){
+        todoObject.status = "Complete";
+    } else {
+        todoObject.status = "Incomplete";
+    }
+    let finalObject = {...projectObject, [todoObject.title]: todoObject}
+    localStorage.setItem(todoObject.project, JSON.stringify(finalObject));
+    displayTodo();
+}
+
+let obtainProjectItem = function(e){
+    let projectText = e.target.parentNode.parentNode.querySelector('.project-name').textContent;
+    let titleText = e.target.parentNode.querySelector('.title-element').textContent;
+    let projectObject = getLocalStorage(projectText);
+    let todoObject = projectObject[titleText];
+    return {projectObject, todoObject};
+}
+
 const viewTodoClick = function(e){
-    // Pick the right one and not just first element which matches.
     let project = e.target.parentNode.parentNode.querySelector('.project-name').textContent;
     let title = e.target.parentNode.querySelector('.title-element').textContent;
     let projectObject = getLocalStorage(project);
@@ -93,13 +114,13 @@ const editTodo = function(e){
     modalDescription.appendChild(submitTextaarea);
 }
 
-// I have to make it so the object gets prepended with a title
 const changeTodoDescription = function(project, title, newDescription){
     let storageResult = getLocalStorage(project);
     let todoItem = storageResult[title];
     todoItem.description = newDescription;
     let finalObject = {[title]: todoItem};
     localStorage.setItem(project, JSON.stringify(finalObject));
+    displayTodo();
 
 }
 
@@ -214,6 +235,11 @@ const displayTodo = function(){
         for(const key in projectObject){
             const itemContainer = document.createElement('div');
             itemContainer.classList.add('item-container');
+            if(projectObject[key].status === "Incomplete"){
+                itemContainer.classList.add("incomplete");
+            } else {
+                itemContainer.classList.add("complete");
+            }
 
             let noteDate = projectObject[key]['dueDate'];
             const todoItemContainer = document.createElement('div');
@@ -244,6 +270,10 @@ const displayTodo = function(){
             priorityDivision.appendChild(priorityParagraph);
             priorityDivision.appendChild(priorityElement);
 
+            const statusButton = document.createElement('button');
+            statusButton.classList.add('change-status');
+            statusButton.textContent = "Toggle Status";
+
             switch(priority){
                 case "Low":
                     priorityElement.classList.add("low-priority");
@@ -263,6 +293,7 @@ const displayTodo = function(){
             itemContainer.appendChild(deleteTodoButton);
             itemContainer.appendChild(dateElement);
             itemContainer.appendChild(priorityDivision);
+            itemContainer.appendChild(statusButton);
             projectContainer.appendChild(itemContainer);
 
         }

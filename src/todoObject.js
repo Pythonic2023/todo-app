@@ -24,7 +24,7 @@ let createTodoItem = function(object){
         projectObject[newItem.title] = newItem;
         Object.assign(storageResult, projectObject);
         addLocalStorage(project, storageResult);
-    } else {                                                        // REMOVE STRING OBJECT
+    } else {                                                        
         projectObject[newItem.title] = newItem;
         addLocalStorage(newItem.project, projectObject);
     }

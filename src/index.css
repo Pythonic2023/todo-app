@@ -46,8 +46,9 @@ html, body {
         "view-todo title"
         ". date"
         ". priority-division"
+        ". status"
     ;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr 2fr 1fr;
     background-color: grey;
     border: 1px solid black;
@@ -203,4 +204,20 @@ button{
 
 .editTodo button {
     justify-self: flex-end;
+}
+
+.change-status {
+    grid-area: status;
+    justify-self: center;
+    height: 3rem;
+}
+
+/*Status incomplete*/
+.incomplete {
+    border: 5px solid #E55934;
+}
+
+/*Status complete*/
+.complete {
+    border: 5px solid #69995D;
 }
